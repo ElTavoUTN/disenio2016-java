@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">basededatosparaatenderpedidodecompra</database>
+</source>
+<canvas zoom="80">
+<tables>
+<table name="articulo" view="colnames">
+<left>3</left>
+<top>6</top>
+<width>114</width>
+<height>140</height>
+<sql_create_table>CREATE TABLE `articulo` (
+  `OIDArticulo` varchar(40) NOT NULL,
+  `codigoArticulo` varchar(40) NOT NULL,
+  `nombreArticulo` varchar(45) NOT NULL,
+  `stockArticulo` int(20) NOT NULL,
+  `OIDTipoProducto` varchar(40) NOT NULL,
+  `OIDMarca` varchar(40) NOT NULL,
+  PRIMARY KEY (`OIDArticulo`),
+  KEY `OIDTipoProducto` (`OIDTipoProducto`),
+  KEY `OIDMarca` (`OIDMarca`),
+  CONSTRAINT `articulo_ibfk_1` FOREIGN KEY (`OIDTipoProducto`) REFERENCES `tipoproducto` (`OIDTipoProducto`),
+  CONSTRAINT `articulo_ibfk_2` FOREIGN KEY (`OIDMarca`) REFERENCES `marca` (`OIDMarca`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="articuloproveedor" view="colnames">
+<left>163</left>
+<top>8</top>
+<width>137</width>
+<height>113</height>
+<sql_create_table>CREATE TABLE `articuloproveedor` (
+  `OIDArticuloProveedor` varchar(40) NOT NULL,
+  `codigoExterno` varchar(40) NOT NULL,
+  `OIDArticulo` varchar(40) NOT NULL,
+  `OIDProveedor` varchar(40) NOT NULL,
+  PRIMARY KEY (`OIDArticuloProveedor`),
+  KEY `OIDArticulo` (`OIDArticulo`),
+  KEY `OIDProveedor` (`OIDProveedor`),
+  CONSTRAINT `articuloproveedor_ibfk_1` FOREIGN KEY (`OIDArticulo`) REFERENCES `articulo` (`OIDArticulo`),
+  CONSTRAINT `articuloproveedor_ibfk_2` FOREIGN KEY (`OIDProveedor`) REFERENCES `proveedor` (`OIDProveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="cotizacion" view="colnames">
+<left>357</left>
+<top>2</top>
+<width>165</width>
+<height>167</height>
+<sql_create_table>CREATE TABLE `cotizacion` (
+  `OIDCotizacion` varchar(40) NOT NULL,
+  `numCotizacion` int(20) NOT NULL,
+  `fechaCotizacion` date NOT NULL,
+  `fechaEntregaCotizacion` date NOT NULL,
+  `fechaVencimientoCotizacion` date NOT NULL,
+  `horaEntregaCotizacion` time NOT NULL,
+  `OIDReposicion` varchar(40) NOT NULL,
+  `OIDProveedor` varchar(40) NOT NULL,
+  PRIMARY KEY (`OIDCotizacion`),
+  KEY `OIDReposicion` (`OIDReposicion`),
+  KEY `OIDProveedor` (`OIDProveedor`),
+  CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`OIDReposicion`) REFERENCES `reposicion` (`OIDReposicion`),
+  CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`OIDProveedor`) REFERENCES `proveedor` (`OIDProveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="cotizaciondetalle" view="colnames">
+<left>573</left>
+<top>7</top>
+<width>165</width>
+<height>194</height>
+<sql_create_table>CREATE TABLE `cotizaciondetalle` (
+  `OIDCotizacionDetalle` varchar(40) NOT NULL,
+  `OIDEstadoCotizacionDetalle` varchar(40) NOT NULL,
+  `OIDCotizacion` varchar(40) NOT NULL,
+  `OIDArticuloProveedor` varchar(40) NOT NULL,
+  `OIDReposicionDetalle` varchar(40) NOT NULL,
+  `renglonCotizacion` int(20) NOT NULL,
+  `cantidadAPedirCotizacion` int(20) NOT NULL,
+  `cantidadCotizada` int(20) NOT NULL,
+  `precioArticuloLista` float NOT NULL,
+  `precioCotizacion` double NOT NULL,
+  PRIMARY KEY (`OIDCotizacionDetalle`),
+  KEY `OIDArticuloProveedor` (`OIDArticuloProveedor`),
+  KEY `OIDEstadoCotizacionDetalle` (`OIDEstadoCotizacionDetalle`),
+  KEY `OIDCotizacion` (`OIDCotizacion`),
+  KEY `OIDReposicionDetalle` (`OIDReposicionDetalle`),
+  CONSTRAINT `cotizaciondetalle_ibfk_1` FOREIGN KEY (`OIDArticuloProveedor`) REFERENCES `articuloproveedor` (`OIDArticuloProveedor`),
+  CONSTRAINT `cotizaciondetalle_ibfk_2` FOREIGN KEY (`OIDEstadoCotizacionDetalle`) REFERENCES `estadocotizaciondetalle` (`OIDEstadoCotizacionDetalle`),
+  CONSTRAINT `cotizaciondetalle_ibfk_3` FOREIGN KEY (`OIDCotizacion`) REFERENCES `cotizacion` (`OIDCotizacion`),
+  CONSTRAINT `cotizaciondetalle_ibfk_4` FOREIGN KEY (`OIDReposicionDetalle`) REFERENCES `reposiciondetalle` (`OIDReposicionDetalle`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="estadocotizaciondetalle" view="colnames">
+<left>782</left>
+<top>60</top>
+<width>182</width>
+<height>99</height>
+<sql_create_table>CREATE TABLE `estadocotizaciondetalle` (
+  `OIDEstadoCotizacionDetalle` varchar(40) NOT NULL,
+  `codigoEstadoCotizacionDetalle` varchar(40) NOT NULL,
+  `nombreEstadoCotizacionDetalle` varchar(45) NOT NULL,
+  PRIMARY KEY (`OIDEstadoCotizacionDetalle`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="estadopedido" view="colnames">
+<left>12</left>
+<top>323</top>
+<width>133</width>
+<height>99</height>
+<sql_create_table>CREATE TABLE `estadopedido` (
+  `OIDEstadoPedido` varchar(40) NOT NULL,
+  `codigoEstadoPedido` int(20) NOT NULL,
+  `nombreEstadoPedido` varchar(45) NOT NULL,
+  PRIMARY KEY (`OIDEstadoPedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="estadoreposicion" view="colnames">
+<left>244</left>
+<top>192</top>
+<width>151</width>
+<height>99</height>
+<sql_create_table>CREATE TABLE `estadoreposicion` (
+  `OIDEstadoReposicion` varchar(40) NOT NULL,
+  `codigoEstadoReposicion` int(20) NOT NULL,
+  `nombreEstadoReposicion` varchar(45) NOT NULL,
+  PRIMARY KEY (`OIDEstadoReposicion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="listaprecio" view="colnames">
+<left>389</left>
+<top>346</top>
+<width>106</width>
+<height>113</height>
+<sql_create_table>CREATE TABLE `listaprecio` (
+  `OIDListaPrecio` varchar(40) NOT NULL,
+  `numListaPrecio` int(20) NOT NULL,
+  `vigente` tinyint(1) NOT NULL,
+  `OIDProveedor` varchar(40) NOT NULL,
+  PRIMARY KEY (`OIDListaPrecio`),
+  KEY `OIDProveedor` (`OIDProveedor`),
+  CONSTRAINT `listaprecio_ibfk_1` FOREIGN KEY (`OIDProveedor`) REFERENCES `proveedor` (`OIDProveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="listapreciodetalle" view="colnames">
+<left>337</left>
+<top>534</top>
+<width>136</width>
+<height>126</height>
+<sql_create_table>CREATE TABLE `listapreciodetalle` (
+  `OIDListaPrecioDetalle` varchar(40) NOT NULL,
+  `OIDArticulo` varchar(40) NOT NULL,
+  `OIDListaPrecio` varchar(40) NOT NULL,
+  `precioArticulo` float NOT NULL,
+  `renglonLista` int(20) NOT NULL,
+  PRIMARY KEY (`OIDListaPrecioDetalle`),
+  KEY `OIDArticulo` (`OIDArticulo`),
+  KEY `OIDListaPrecio` (`OIDListaPrecio`),
+  CONSTRAINT `listapreciodetalle_ibfk_1` FOREIGN KEY (`OIDArticulo`) REFERENCES `articulo` (`OIDArticulo`),
+  CONSTRAINT `listapreciodetalle_ibfk_2` FOREIGN KEY (`OIDListaPrecio`) REFERENCES `listaprecio` (`OIDListaPrecio`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="marca" view="colnames">
+<left>874</left>
+<top>519</top>
+<width>99</width>
+<height>99</height>
+<sql_create_table>CREATE TABLE `marca` (
+  `OIDMarca` varchar(40) NOT NULL,
+  `codigoMarca` varchar(40) NOT NULL,
+  `nombreMarca` varchar(45) NOT NULL,
+  PRIMARY KEY (`OIDMarca`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="pedido" view="colnames">
+<left>721</left>
+<top>327</top>
+<width>148</width>
+<height>154</height>
+<sql_create_table>CREATE TABLE `pedido` (
+  `OIDPedido` varchar(40) NOT NULL,
+  `numPedido` int(20) NOT NULL,
+  `fechaPedido` date NOT NULL,
+  `fechaVencimientoPedido` date NOT NULL,
+  `OIDProveedor` varchar(40) NOT NULL,
+  `OIDReposicion` varchar(40) NOT NULL,
+  `OIDCotizacion` varchar(40) NOT NULL,
+  PRIMARY KEY (`OIDPedido`),
+  KEY `OIDCotizacion` (`OIDCotizacion`),
+  KEY `OIDReposicion` (`OIDReposicion`),
+  KEY `OIDProveedor` (`OIDProveedor`),
+  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`OIDCotizacion`) REFERENCES `cotizacion` (`OIDCotizacion`),
+  CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`OIDReposicion`) REFERENCES `reposicion` (`OIDReposicion`),
+  CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`OIDProveedor`) REFERENCES `proveedor` (`OIDProveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="pedidodetalle" view="colnames">
+<left>1</left>
+<top>479</top>
+<width>134</width>
+<height>140</height>
+<sql_create_table>CREATE TABLE `pedidodetalle` (
+  `OIDPedidoDetalle` varchar(40) NOT NULL,
+  `renglonPedido` int(20) NOT NULL,
+  `OIDPedido` varchar(40) NOT NULL,
+  `OIDArticulo` varchar(40) NOT NULL,
+  `OIDCotizacionDetalle` varchar(40) NOT NULL,
+  `cantidadPedido` int(20) NOT NULL,
+  PRIMARY KEY (`OIDPedidoDetalle`),
+  KEY `OIDPedido` (`OIDPedido`),
+  KEY `OIDArticulo` (`OIDArticulo`),
+  KEY `OIDCotizacionDetalle` (`OIDCotizacionDetalle`),
+  CONSTRAINT `pedidodetalle_ibfk_1` FOREIGN KEY (`OIDPedido`) REFERENCES `pedido` (`OIDPedido`),
+  CONSTRAINT `pedidodetalle_ibfk_2` FOREIGN KEY (`OIDArticulo`) REFERENCES `articulo` (`OIDArticulo`),
+  CONSTRAINT `pedidodetalle_ibfk_3` FOREIGN KEY (`OIDCotizacionDetalle`) REFERENCES `cotizaciondetalle` (`OIDCotizacionDetalle`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="pedidoestado" view="colnames">
+<left>3</left>
+<top>169</top>
+<width>151</width>
+<height>126</height>
+<sql_create_table>CREATE TABLE `pedidoestado` (
+  `OIDPedidoEstado` varchar(40) NOT NULL,
+  `OIDPedido` varchar(40) NOT NULL,
+  `OIDEstadoPedido` varchar(40) NOT NULL,
+  `fechaDesdePedidoEstado` date DEFAULT NULL,
+  `fechaHastaPedidoEstado` date DEFAULT NULL,
+  PRIMARY KEY (`OIDPedidoEstado`),
+  KEY `OIDPedido` (`OIDPedido`),
+  KEY `OIDEstadoPedido` (`OIDEstadoPedido`),
+  CONSTRAINT `pedidoestado_ibfk_1` FOREIGN KEY (`OIDPedido`) REFERENCES `pedido` (`OIDPedido`),
+  CONSTRAINT `pedidoestado_ibfk_2` FOREIGN KEY (`OIDEstadoPedido`) REFERENCES `estadopedido` (`OIDEstadoPedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="proveedor" view="colnames">
+<left>194</left>
+<top>376</top>
+<width>119</width>
+<height>154</height>
+<sql_create_table>CREATE TABLE `proveedor` (
+  `OIDProveedor` varchar(40) NOT NULL,
+  `codigoProveedor` varchar(40) NOT NULL,
+  `nombreProveedor` varchar(45) NOT NULL,
+  `cuitProveedor` int(15) NOT NULL,
+  `emailProveedor` varchar(45) NOT NULL,
+  `estadoProveedor` tinyint(1) NOT NULL,
+  `sistemaProveedor` varchar(45) NOT NULL,
+  PRIMARY KEY (`OIDProveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="reposicion" view="colnames">
+<left>454</left>
+<top>207</top>
+<width>134</width>
+<height>113</height>
+<sql_create_table>CREATE TABLE `reposicion` (
+  `OIDReposicion` varchar(40) NOT NULL,
+  `numReposicion` int(20) NOT NULL,
+  `fechaReposicion` date NOT NULL,
+  `OIDEstadoReposicion` varchar(40) NOT NULL,
+  PRIMARY KEY (`OIDReposicion`),
+  KEY `OIDEstadoReposicion` (`OIDEstadoReposicion`),
+  CONSTRAINT `reposicion_ibfk_1` FOREIGN KEY (`OIDEstadoReposicion`) REFERENCES `estadoreposicion` (`OIDEstadoReposicion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="reposiciondetalle" view="colnames">
+<left>561</left>
+<top>525</top>
+<width>136</width>
+<height>126</height>
+<sql_create_table>CREATE TABLE `reposiciondetalle` (
+  `OIDReposicionDetalle` varchar(40) NOT NULL,
+  `OIDReposicion` varchar(40) NOT NULL,
+  `OIDArticulo` varchar(40) NOT NULL,
+  `renglonReposicion` int(20) NOT NULL,
+  `cantidadAReponer` int(20) NOT NULL,
+  PRIMARY KEY (`OIDReposicionDetalle`),
+  KEY `OIDArticulo` (`OIDArticulo`),
+  KEY `OIDReposicion` (`OIDReposicion`),
+  CONSTRAINT `reposiciondetalle_ibfk_1` FOREIGN KEY (`OIDArticulo`) REFERENCES `articulo` (`OIDArticulo`),
+  CONSTRAINT `reposiciondetalle_ibfk_2` FOREIGN KEY (`OIDReposicion`) REFERENCES `reposicion` (`OIDReposicion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="tipoproducto" view="colnames">
+<left>581</left>
+<top>367</top>
+<width>114</width>
+<height>99</height>
+<sql_create_table>CREATE TABLE `tipoproducto` (
+  `OIDTipoProducto` varchar(40) NOT NULL,
+  `codigoTipo` varchar(40) NOT NULL,
+  `nombreTipo` varchar(45) NOT NULL,
+  PRIMARY KEY (`OIDTipoProducto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
