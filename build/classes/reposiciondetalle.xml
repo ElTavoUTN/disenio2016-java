@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Clases.ReposicionDetalle" table="reposiciondetalle">
+      
+        <id name="OID" type="string">
+            <column name="OIDReposicionDetalle"/>
+            <generator class="uuid2"/>
+        </id>
+        
+        <property name="renglonReposicion" type="int">
+            <column name="renglonReposicion"/>
+        </property>
+        
+        <property name="cantidadAreponer" type="int">
+            <column name="cantidadAreponer"/>
+        </property>
+            
+        <many-to-one name="m_Articulo"  column="OIDArticulo" class="Clases.Articulo" not-null="true"/>
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Clases.PedidoEstado" table="pedidoestado">
+      
+        <id name="OID" type="string">
+            <column name="OIDPedidoEstado"/>
+            <generator class="uuid2"/>
+        </id>
+        
+        <property name="fechaDesdePedidoEstado" type="java.util.Date">
+            <column name="fechaDesdePedidoEstado"/>
+        </property>
+        
+        <property name="fechaHastaPedidoEstado" type="java.util.Date">
+            <column name="fechaHastaPedidoEstado"/>
+        </property>
+        
+        <many-to-one name="m_EstadoPedido" column="OIDEstadoPedido" class="Clases.EstadoPedido" not-null="true"/>
+       
+    </class>
+          
+</hibernate-mapping>

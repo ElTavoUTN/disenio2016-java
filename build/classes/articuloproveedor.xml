@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Clases.ArticuloProveedor" table="articuloproveedor">
+      
+        <id name="OID" type="string">
+            <column name="OIDArticuloProveedor"/>
+            <generator class="uuid2"/>
+        </id>
+        
+        <property name="codigoExterno" type="string">
+            <column name="codigoExterno"/>
+        </property>
+        
+        <many-to-one name="m_Articulo" column="OIDArticulo" class="Clases.Articulo" not-null="true"/>
+        
+        <many-to-one name="m_Proveedor" column="OIDProveedor" class="Clases.Proveedor" not-null="true"/>
+                      
+    </class>
+      
+</hibernate-mapping>

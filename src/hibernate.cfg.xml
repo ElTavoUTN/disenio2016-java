@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sinapsis</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+    
+        <mapping resource="articulo.xml"/>
+        <mapping resource="tipoproducto.xml"/>
+        <mapping resource="marca.xml"/>
+        <mapping resource="proveedor.xml"/>
+        <mapping resource="articuloproveedor.xml"/>
+        <mapping resource="estadocotizaciondetalle.xml"/>
+        <mapping resource="cotizaciondetalle.xml"/>
+        <mapping resource="cotizacion.xml"/>
+        <mapping resource="reposicion.xml"/>
+        <mapping resource="estadoreposicion.xml"/>
+        <mapping resource="listaprecio.xml"/>
+        <mapping resource="listapreciodetalle.xml"/>
+        <mapping resource="pedido.xml"/>
+        <mapping resource="reposiciondetalle.xml"/>
+        <mapping resource="pedidodetalle.xml"/>
+        <mapping resource="estadopedido.xml"/>
+        <mapping resource="pedidoestado.xml"/>
+        <mapping resource="parametro.xml"/>
+        <mapping resource="sistemaproveedor.xml"/>
+    
+    </session-factory>
+</hibernate-configuration>

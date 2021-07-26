@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Clases.ListaPrecio" table="listaprecio">
+  
+        <id name="OID" type="string">
+            <column name="OIDListaPrecio"/>
+            <generator class="uuid2"/>
+        </id>
+        
+        <property name="numListaPrecio" type="int">
+            <column name="numListaPrecio"/>
+        </property>
+        
+        <property name="vigente" type="boolean">
+            <column name="vigente"/>
+        </property>
+
+        <many-to-one name="m_Proveedor" column="OIDProveedor" class="Clases.Proveedor" not-null="true"/>
+        
+        <bag name="m_ListaPrecioDetalleList" cascade="none" table="ListaPrecioDetalle" inverse="false">
+            <key column="OIDListaPrecio" not-null="true"/>
+            <one-to-many class="Clases.ListaPrecioDetalle"/>
+        </bag>
+    
+    </class>
+</hibernate-mapping>

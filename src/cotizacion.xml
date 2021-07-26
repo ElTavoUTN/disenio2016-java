@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Clases.Cotizacion" table="cotizacion">
+        <id name="OID" type="string">
+            <column name="OIDCotizacion"/>
+            <generator class="uuid2"/>
+        </id>
+        
+        <property name="numCotizacion" type="int">
+            <column name="numCotizacion"/>
+        </property>
+        
+        <property name="fechaCotizacion" type="java.util.Date">
+            <column name="fechaCotizacion"/>
+        </property>
+        
+        <property name="fechaEntregaCotizacion" type="java.util.Date">
+            <column name="fechaEntregaCotizacion"/>
+        </property>
+    
+        <property name="fechaVencimientoCotizacion" type="java.util.Date">
+            <column name="fechaVencimientoCotizacion"/>
+        </property>
+         
+        <property name="horaEntregaCotizacion" type="java.sql.Time">
+            <column name="horaEntregaCotizacion"/>
+        </property>
+         
+                             
+        <many-to-one name="m_Reposicion" column="OIDReposicion" class="Clases.Reposicion" not-null="true"/>
+        
+        <many-to-one name="m_Proveedor" column="OIDProveedor" class="Clases.Proveedor" not-null="true"/>
+  
+        <bag name="m_CotizacionDetalleList" cascade="none" table="CotizacionDetalle" inverse="false">
+            <key column="OIDCotizacion" not-null="true"/>
+            <one-to-many class="Clases.CotizacionDetalle"/>
+        </bag>
+   
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="Clases.SistemaProveedor" table="sistemaproveedor">
+     
+      <id name="OID" type="string">
+            <column name="OIDSistemaProveedor"/>
+            <generator class="uuid2"/>
+        </id>
+        
+      <property name="nombreSistemaProveedor" type="string">
+            <column name="nombreSistemaProveedor"/>
+        </property> 
+      
+  </class>
+</hibernate-mapping>

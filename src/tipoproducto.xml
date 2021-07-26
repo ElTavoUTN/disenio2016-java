@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Clases.TipoProducto" table="tipoproducto">
+
+        <id name="OID" type="string">
+            <column name="OIDTipoProducto"/>
+            <generator class="uuid2"/>
+        </id>
+        
+        <property name="codigoTipo" type="string">
+            <column name="codigoTipo"/>
+        </property>
+        
+        <property name="nombreTipo" type="string">
+            <column name="nombreTipo"/>
+        </property>
+        
+        <property name="toxico" type="string">
+            <column name="toxico"/>
+        </property>
+     
+     
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Clases.Reposicion" table="reposicion">
+        
+        
+        <id name="OID" type="string">
+            <column name="OIDReposicion"/>
+            <generator class="uuid2"/>
+        </id>
+        
+        <property name="numReposicion" type="int">
+            <column name="numReposicion"/>
+        </property>
+        
+        <property name="fechaReposicion" type="java.util.Date">
+            <column name="fechaReposicion"/>
+        </property>
+            
+        <many-to-one name="m_EstadoReposicion" column="OIDEstadoReposicion" class="Clases.EstadoReposicion" not-null="true"/>
+        
+        <bag name="m_ReposicionDetalleList" cascade="none" table="ReposicionDetalle" inverse="false">
+            <key column="OIDReposicion" not-null="true"/>
+            <one-to-many class="Clases.ReposicionDetalle"/>
+        </bag>
+        
+        
+    </class>
+</hibernate-mapping>
