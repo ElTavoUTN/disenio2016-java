@@ -1,0 +1,1 @@
+recuperabase.bat RankearProveedorCP_04.sql

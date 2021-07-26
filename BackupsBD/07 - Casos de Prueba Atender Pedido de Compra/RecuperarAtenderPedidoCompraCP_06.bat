@@ -1,0 +1,1 @@
+recuperabase.bat AtenderPedidoCompraCP_06.sql

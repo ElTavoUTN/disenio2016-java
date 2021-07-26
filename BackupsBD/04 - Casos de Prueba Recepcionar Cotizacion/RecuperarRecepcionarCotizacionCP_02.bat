@@ -1,0 +1,1 @@
+recuperabase.bat RecepcionarCotizacionCP_02.sql

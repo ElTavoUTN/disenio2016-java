@@ -1,0 +1,1 @@
+recuperabase.bat RecepcionarCotizacionCP_04.sql
